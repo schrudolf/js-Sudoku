@@ -15,7 +15,7 @@ async function createNineCube() {
     await createCubeOne()
     await createCubeTwo()
     await createCubeThree()
-    // await createCubeFour()
+    await createCubeFour()
     // await createCubeFive()
     // await createCubeSix()
     // await createCubeSeven()
@@ -114,6 +114,41 @@ function createCubeThree() {
                     if (i === 9) {
                         i++
                         resolve(console.log("CubeThree done! " + cubeThree))
+                    }
+                }))
+        }
+    })
+}
+
+function createCubeFour() {
+    return new Promise(async (resolve, reject) => {
+        for (let i = 0; i < 9;) {
+            await randomNumbers()
+                .then((randomNumber => {
+                    if (i === 6 || i === 7 || i === 8) {
+                        stopper++;
+                    }
+                    if (i < 3 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i + 3] !== randomNumber && cubeOne[i + 6] !== randomNumber) {
+                        cubeFour.push(randomNumber)
+                        i++
+                    }
+                    if (i < 6 && i > 2 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i - 3] !== randomNumber && cubeOne[i + 3] !== randomNumber) {
+                        cubeFour.push(randomNumber)
+                        i++
+                    }
+                    if (i < 9 && i > 5 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i - 3] !== randomNumber && cubeOne[i - 6] !== randomNumber) {
+                        cubeFour.push(randomNumber)
+                        i++
+                    }
+                    if (stopper === tryLimit) {
+                        stopper = 0;
+                        cubeFour = [];
+                        i += 10;
+                        return resolve(createCubeFour())
+                    }
+                    if (i === 9) {
+                        i++
+                        resolve(console.log("CubeFour done! " + cubeFour))
                     }
                 }))
         }
