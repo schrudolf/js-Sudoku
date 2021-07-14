@@ -1,29 +1,29 @@
-let cubeOne = []
-let cubeTwo = []
-let cubeThree = []
-let cubeFour = []
-let cubeFive = []
-let cubeSix = []
-let cubeSeven = []
-let cubeEight = []
-let cubeNine = []
+let squareOne = []
+let squareTwo = []
+let squareThree = []
+let squareFour = []
+let squareFive = []
+let squareSix = []
+let squareSeven = []
+let squareEight = []
+let squareNine = []
 
-const tryLimit = 250;
+const tryLimit = 2000;
 let stopper = 0;
 
-async function createNineCube() {
-    await createCubeOne()
-    await createCubeTwo()
-    await createCubeThree()
-    await createCubeFour()
-    // await createCubeFive()
-    // await createCubeSix()
-    // await createCubeSeven()
-    // await createCubeEight()
-    // await createCubeNine()
+async function createNineSquare() {
+    await createSquareOne()
+    await createSquareTwo()
+    await createSquareThree()
+    await createSquareFour()
+    await createSquareFive()
+    // await createSquareSix()
+    // await createSquareSeven()
+    // await createSquareEight()
+    // await createSquareNine()
 }
 
-createNineCube()
+createNineSquare()
 
 function randomNumbers() {
     return new Promise((resolve, reject) => {
@@ -33,122 +33,157 @@ function randomNumbers() {
     })
 }
 
-function createCubeOne() {
+function createSquareOne() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
                 .then((randomNumber => {
-                    if (!cubeOne.includes(randomNumber)) {
-                        cubeOne.push(randomNumber)
+                    if (!squareOne.includes(randomNumber)) {
+                        squareOne.push(randomNumber)
                         i++
                     }
                     if (i === 9) {
-                        resolve(console.log("CubeOne done! " + cubeOne))
+                        resolve(console.log("squareOne done! " + squareOne))
                     }
                 }))
         }
     })
 }
 
-function createCubeTwo() {
+function createSquareTwo() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
                 .then((randomNumber => {
-                    if (i === 6 || i === 7 || i === 8) {
+                    if (i > 3) {
                         stopper++;
                     }
-                    if (i < 9 && i > 5 && !cubeTwo.includes(randomNumber) && !cubeOne.slice(6, 9).includes(randomNumber)) {
-                        cubeTwo.push(randomNumber)
+                    if (i < 9 && i > 5 && !squareTwo.includes(randomNumber) && !squareOne.slice(6, 9).includes(randomNumber)) {
+                        squareTwo.push(randomNumber)
                         i++
                     }
-                    if (i < 6 && i > 2 && !cubeTwo.includes(randomNumber) && !cubeOne.slice(3, 6).includes(randomNumber)) {
-                        cubeTwo.push(randomNumber)
+                    if (i < 6 && i > 2 && !squareTwo.includes(randomNumber) && !squareOne.slice(3, 6).includes(randomNumber)) {
+                        squareTwo.push(randomNumber)
                         i++
                     }
-                    if (i < 3 && !cubeTwo.includes(randomNumber) && !cubeOne.slice(0, 3).includes(randomNumber)) {
-                        cubeTwo.push(randomNumber)
+                    if (i < 3 && !squareTwo.includes(randomNumber) && !squareOne.slice(0, 3).includes(randomNumber)) {
+                        squareTwo.push(randomNumber)
                         i++
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
-                        cubeTwo = [];
-                        i += 10;
-                        return resolve(createCubeTwo())
+                        squareTwo = [];
+                        i = 10;
+                        return resolve(createSquareTwo())
                     }
                     if (i === 9) {
                         i++
-                        resolve(console.log("CubeTwo done! " + cubeTwo))
+                        resolve(console.log("squareTwo done! " + squareTwo))
                     }
                 }))
         }
     })
 }
 
-function createCubeThree() {
+function createSquareThree() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
                 .then((randomNumber => {
-                    if (i === 6 || i === 7 || i === 8) {
+                    if (i > 3) {
                         stopper++;
                     }
-                    if (i < 9 && i > 5 && !cubeThree.includes(randomNumber) && !cubeOne.slice(6, 9).includes(randomNumber) && !cubeTwo.slice(6, 9).includes(randomNumber)) {
-                        cubeThree.push(randomNumber)
+                    if (i < 9 && i > 5 && !squareThree.includes(randomNumber) && !squareOne.slice(6, 9).includes(randomNumber) && !squareTwo.slice(6, 9).includes(randomNumber)) {
+                        squareThree.push(randomNumber)
                         i++
                     }
-                    if (i < 6 && i > 2 && !cubeThree.includes(randomNumber) && !cubeOne.slice(3, 6).includes(randomNumber) && !cubeTwo.slice(3, 6).includes(randomNumber)) {
-                        cubeThree.push(randomNumber)
+                    if (i < 6 && i > 2 && !squareThree.includes(randomNumber) && !squareOne.slice(3, 6).includes(randomNumber) && !squareTwo.slice(3, 6).includes(randomNumber)) {
+                        squareThree.push(randomNumber)
                         i++
                     }
-                    if (i < 3 && !cubeThree.includes(randomNumber) && !cubeOne.slice(0, 3).includes(randomNumber) && !cubeTwo.slice(0, 3).includes(randomNumber)) {
-                        cubeThree.push(randomNumber)
+                    if (i < 3 && !squareThree.includes(randomNumber) && !squareOne.slice(0, 3).includes(randomNumber) && !squareTwo.slice(0, 3).includes(randomNumber)) {
+                        squareThree.push(randomNumber)
                         i++
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
-                        cubeThree = [];
-                        i += 10;
-                        return resolve(createCubeThree())
+                        squareThree = [];
+                        i = 10;
+                        return resolve(createSquareThree())
                     }
                     if (i === 9) {
                         i++
-                        resolve(console.log("CubeThree done! " + cubeThree))
+                        resolve(console.log("squareThree done! " + squareThree))
                     }
                 }))
         }
     })
 }
 
-function createCubeFour() {
+function createSquareFour() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
                 .then((randomNumber => {
-                    if (i === 6 || i === 7 || i === 8) {
+                    if (i > 3) {
                         stopper++;
                     }
-                    if (i < 3 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i + 3] !== randomNumber && cubeOne[i + 6] !== randomNumber) {
-                        cubeFour.push(randomNumber)
+                    if (i < 3 && squareOne[i] !== randomNumber && !squareFour.includes(randomNumber) && squareOne[i + 3] !== randomNumber && squareOne[i + 6] !== randomNumber) {
+                        squareFour.push(randomNumber)
                         i++
                     }
-                    if (i < 6 && i > 2 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i - 3] !== randomNumber && cubeOne[i + 3] !== randomNumber) {
-                        cubeFour.push(randomNumber)
+                    if (i < 6 && i > 2 && squareOne[i] !== randomNumber && !squareFour.includes(randomNumber) && squareOne[i - 3] !== randomNumber && squareOne[i + 3] !== randomNumber) {
+                        squareFour.push(randomNumber)
                         i++
                     }
-                    if (i < 9 && i > 5 && cubeOne[i] !== randomNumber && !cubeFour.includes(randomNumber) && cubeOne[i - 3] !== randomNumber && cubeOne[i - 6] !== randomNumber) {
-                        cubeFour.push(randomNumber)
+                    if (i < 9 && i > 5 && squareOne[i] !== randomNumber && !squareFour.includes(randomNumber) && squareOne[i - 3] !== randomNumber && squareOne[i - 6] !== randomNumber) {
+                        squareFour.push(randomNumber)
                         i++
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
-                        cubeFour = [];
-                        i += 10;
-                        return resolve(createCubeFour())
+                        squareFour = [];
+                        i = 10;
+                        return resolve(createSquareFour())
                     }
                     if (i === 9) {
                         i++
-                        resolve(console.log("CubeFour done! " + cubeFour))
+                        resolve(console.log("squareFour done! " + squareFour))
+                    }
+                }))
+        }
+    })
+}
+
+function createSquareFive() {
+    return new Promise(async (resolve, reject) => {
+        for (let i = 0; i < 9;) {
+            await randomNumbers()
+                .then((async randomNumber => {
+                    if (i > 3) {
+                        stopper++;
+                    }
+                    if (i < 3 && squareTwo[i] !== randomNumber && !squareFive.includes(randomNumber) && squareTwo[i + 3] !== randomNumber && squareTwo[i + 6] !== randomNumber && !squareFour.slice(0, 3).includes(randomNumber)) {
+                        squareFive.push(randomNumber)
+                        i++
+                    }
+                    if (i < 6 && i > 2 && squareTwo[i] !== randomNumber && !squareFive.includes(randomNumber) && squareTwo[i - 3] !== randomNumber && squareTwo[i + 3] !== randomNumber && !squareFour.slice(3, 6).includes(randomNumber)) {
+                        squareFive.push(randomNumber)
+                        i++
+                    }
+                    if (i < 9 && i > 5 && squareTwo[i] !== randomNumber && !squareFive.includes(randomNumber) && squareTwo[i - 3] !== randomNumber && squareTwo[i - 6] !== randomNumber && !squareFour.slice(6, 9).includes(randomNumber)) {
+                        squareFive.push(randomNumber)
+                        i++
+                    }
+                    if (stopper === tryLimit) {
+                        stopper = 0;
+                        squareFive = [];
+                        i = 10;
+                        return resolve(createSquareFive())
+                    }
+                    if (i === 9) {
+                        i++
+                        resolve(console.log("squareFive done! " + squareFive))
                     }
                 }))
         }
