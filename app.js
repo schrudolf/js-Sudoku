@@ -8,28 +8,35 @@ let squareSeven = []
 let squareEight = []
 let squareNine = []
 
-const tryLimit = 500;
+const tryLimit = 1000;
 let stopper = 0;
 let exit = 0;
 
 async function createNineSquare() {
-    await createSquareOne()
-    await createSquareTwo()
-    await createSquareThree()
-    await createSquareFour()
-    await createSquareFive()
-    await createSquareSix()
-    await createSquareSeven()
-    await createSquareEight()
-    // await createSquareNine()
-    console.log("Square One Numbers " +  squareOne)
-    console.log("Square Two Numbers " +  squareTwo)
-    console.log("Square Three Numbers " +  squareThree)
-    console.log("Square Four Numbers " +  squareFour)
-    console.log("Square Five Numbers " +  squareFive)
-    console.log("Square Six Numbers " +  squareSix)
-    console.log("Square Seven Numbers " +  squareSeven)
-    console.log("Square Eight Numbers " +  squareEight)
+    try {
+        await createSquareOne()
+        await createSquareTwo()
+        await createSquareThree()
+        await createSquareFour()
+        await createSquareFive()
+        await createSquareSix()
+        await createSquareSeven()
+        await createSquareEight()
+        await createSquareNine()
+        console.log("Successful generation! New Sudoku Board");
+        console.log("Square One Numbers " + squareOne)
+        console.log("Square Two Numbers " + squareTwo)
+        console.log("Square Three Numbers " + squareThree)
+        console.log("Square Four Numbers " + squareFour)
+        console.log("Square Five Numbers " + squareFive)
+        console.log("Square Six Numbers " + squareSix)
+        console.log("Square Seven Numbers " + squareSeven)
+        console.log("Square Eight Numbers " + squareEight)
+        console.log("Square Nine Numbers " + squareNine)
+    } catch {
+        console.log("Generation failed. Try again")
+        return restart()
+    }
 }
 
 createNineSquare()
@@ -65,6 +72,11 @@ function createSquareTwo() {
             await randomNumbers()
                 .then((randomNumber => {
                     stopper++;
+                    if (exit === 3) {
+                        i = 10
+                        exit = 0;
+                        return reject()
+                    }
                     if (i < 9 && i > 5 && !squareTwo.includes(randomNumber) && !squareOne.slice(6, 9).includes(randomNumber)) {
                         squareTwo.push(randomNumber)
                         i++
@@ -79,6 +91,7 @@ function createSquareTwo() {
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
+                        exit++;
                         squareTwo = [];
                         i = 10;
                         return resolve(createSquareTwo())
@@ -98,6 +111,11 @@ function createSquareThree() {
             await randomNumbers()
                 .then((randomNumber => {
                     stopper++;
+                    if (exit === 3) {
+                        i = 10
+                        exit = 0;
+                        return reject()
+                    }
                     if (i < 9 && i > 5 && !squareThree.includes(randomNumber) && !squareOne.slice(6, 9).includes(randomNumber) && !squareTwo.slice(6, 9).includes(randomNumber)) {
                         squareThree.push(randomNumber)
                         i++
@@ -112,6 +130,7 @@ function createSquareThree() {
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
+                        exit++;
                         squareThree = [];
                         i = 10;
                         return resolve(createSquareThree())
@@ -131,6 +150,11 @@ function createSquareFour() {
             await randomNumbers()
                 .then((randomNumber => {
                     stopper++;
+                    if (exit === 3) {
+                        i = 10
+                        exit = 0;
+                        return reject()
+                    }
                     if (i < 3 && squareOne[i] !== randomNumber && !squareFour.includes(randomNumber) && squareOne[i + 3] !== randomNumber && squareOne[i + 6] !== randomNumber) {
                         squareFour.push(randomNumber)
                         i++
@@ -145,6 +169,7 @@ function createSquareFour() {
                     }
                     if (stopper === tryLimit) {
                         stopper = 0;
+                        exit++;
                         squareFour = [];
                         i = 10;
                         return resolve(createSquareFour())
@@ -167,7 +192,7 @@ function createSquareFive() {
                     if (exit === 3) {
                         i = 10
                         exit = 0;
-                        return resolve(restart())
+                        return reject()
                     }
                     if (i < 3 && squareTwo[i] !== randomNumber && !squareFive.includes(randomNumber) && squareTwo[i + 3] !== randomNumber && squareTwo[i + 6] !== randomNumber && !squareFour.slice(0, 3).includes(randomNumber)) {
                         squareFive.push(randomNumber)
@@ -206,7 +231,7 @@ function createSquareSix() {
                     if (exit === 3) {
                         i = 10
                         exit = 0;
-                        return resolve(restart())
+                        return reject()
                     }
                     if (i < 3 && squareThree[i] !== randomNumber && !squareSix.includes(randomNumber) && squareThree[i + 3] !== randomNumber && squareThree[i + 6] !== randomNumber && !squareFour.slice(0, 3).includes(randomNumber) && !squareFive.slice(0, 3).includes(randomNumber)) {
                         squareSix.push(randomNumber)
@@ -246,7 +271,7 @@ function createSquareSeven() {
                     if (exit === 3) {
                         i = 10
                         exit = 0;
-                        return resolve(restart())
+                        return reject()
                     }
                     if (i < 3 && squareOne[i] !== randomNumber && squareFour[i] !== randomNumber && !squareSeven.includes(randomNumber) && squareOne[i + 3] !== randomNumber && squareOne[i + 6] !== randomNumber && squareFour[i + 3] !== randomNumber && squareFour[i + 6] !== randomNumber) {
                         squareSeven.push(randomNumber)
@@ -285,7 +310,7 @@ function createSquareEight() {
                     if (exit === 3) {
                         i = 10
                         exit = 0;
-                        return resolve(restart())
+                        return reject()
                     }
                     if (i < 3 && squareTwo[i] !== randomNumber && squareFive[i] !== randomNumber && !squareEight.includes(randomNumber) && squareTwo[i + 3] !== randomNumber && squareTwo[i + 6] !== randomNumber && !squareSeven.slice(0, 3).includes(randomNumber) && squareFive[i + 3] !== randomNumber && squareFive[i + 6] !== randomNumber) {
                         squareEight.push(randomNumber)
@@ -305,6 +330,45 @@ function createSquareEight() {
                         squareEight = [];
                         i = 10;
                         return resolve(createSquareEight())
+                    }
+                    if (i === 9) {
+                        i++
+                        resolve()
+                    }
+                }))
+        }
+    })
+}
+
+function createSquareNine() {
+    return new Promise(async (resolve, reject) => {
+        for (let i = 0; i < 9;) {
+            await randomNumbers()
+                .then((async randomNumber => {
+                    stopper++;
+                    if (exit === 3) {
+                        i = 10
+                        exit = 0;
+                        return reject()
+                    }
+                    if (i < 3 && squareThree[i] !== randomNumber && squareSix[i] !== randomNumber && !squareNine.includes(randomNumber) && squareThree[i + 3] !== randomNumber && squareThree[i + 6] !== randomNumber && squareSix[i + 3] !== randomNumber && squareSix[i + 6] !== randomNumber && !squareSeven.slice(0, 3).includes(randomNumber) && !squareEight.slice(0, 3).includes(randomNumber)) {
+                        squareNine.push(randomNumber)
+                        i++
+                    }
+                    if (i < 6 && i > 2 && squareThree[i] !== randomNumber && squareSix[i] !== randomNumber && !squareNine.includes(randomNumber) && squareThree[i - 3] !== randomNumber && squareThree[i + 3] !== randomNumber && squareSix[i - 3] !== randomNumber && squareSix[i + 3] !== randomNumber && !squareSeven.slice(3, 6).includes(randomNumber) && !squareEight.slice(3, 6).includes(randomNumber)) {
+                        squareNine.push(randomNumber)
+                        i++
+                    }
+                    if (i < 9 && i > 5 && squareThree[i] !== randomNumber && squareSix[i] !== randomNumber && !squareNine.includes(randomNumber) && squareThree[i - 3] !== randomNumber && squareThree[i - 6] !== randomNumber && squareSix[i - 3] !== randomNumber && squareSix[i - 6] !== randomNumber && !squareSeven.slice(6, 9).includes(randomNumber) && !squareEight.slice(6, 9).includes(randomNumber)) {
+                        squareNine.push(randomNumber)
+                        i++
+                    }
+                    if (stopper === tryLimit) {
+                        stopper = 0;
+                        exit++
+                        squareNine = [];
+                        i = 10;
+                        return resolve(createSquareNine())
                     }
                     if (i === 9) {
                         i++
