@@ -2,7 +2,7 @@
   "name": "sudoku",
   "version": "1.0.0",
   "description": "Javascript Sudoku game",
-  "main": "app.js",
+  "main": "sudoku/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

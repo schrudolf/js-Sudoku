@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.square {
+    border: 3px solid black;
+    padding: 0;
+    margin: auto
+}
+
+.smallSquare {
+    border: 1px solid rgb(182, 143, 143);
+    padding-top: 4px;
+    color: rgb(61, 61, 216);
+}
