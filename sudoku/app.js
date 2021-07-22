@@ -13,7 +13,7 @@ let successSudokuTable = false;
 let view = document.getElementById("sudoku")
 let nextSquare = 0;
 let gameLevel;
-let difficulty = [2, 4, 6, 7] 
+let difficulty = [2, 4, 6, 7]
 
 
 // restarter parameters (No need to touch it. If generation is unsolvable, it will restart)
@@ -68,13 +68,13 @@ async function createNineSquare(level) {
                     if (await randomNumbers() < difficulty[gameLevel]) {
                         nineSquare.innerHTML = "";
                         nineSquare.style.backgroundColor = "white"
-                        nineSquare.addEventListener("click", function(){
+                        nineSquare.addEventListener("click", function () {
                             let value = parseInt(prompt("Enter a number: (1-9)"));
-                            if(isNaN(value) || value < 1 || value > 9){
+                            if (isNaN(value) || value < 1 || value > 9) {
                                 alert("Only numbers 1-9")
-                            }
-                            else {
+                            } else {
                                 nineSquare.innerHTML = value;
+                                checkTheStatusOfTheTable() 
                             }
                         })
                     } else {
@@ -391,4 +391,31 @@ function createSquareNine() {
 // Fresh empty arrays. Generating new Sudoku table
 async function restart(level) {
     createNineSquare(level)
+}
+
+function checkTheStatusOfTheTable() {
+    let allSquare = 0;
+    let badValue = 0;
+    let emptySquare = 0;
+    let newTable = [squareOne, squareTwo, squareThree, squareFour, squareFive, squareSix, squareSeven, squareEight, squareNine]
+    for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i++) {
+            if (view.children[allSquare].children[i].firstChild !== null) {
+                if (parseInt(view.children[allSquare].children[i].firstChild.textContent) === newTable[allSquare][i]) {
+                } else {
+                    badValue++; // if value bad
+                }
+
+            } else {
+                emptySquare++ // if empty feild
+            }
+        }
+        allSquare++
+    }
+    if (badValue > 0 && allSquare === 9 && emptySquare === 0) { // Completed but the value is bad
+        alert("One of the numbers is incorrect! :((")
+    }
+    if (badValue === 0 && allSquare === 9 && emptySquare === 0) { // if check all square and no bad value or emptySquare. You win
+        alert("Successfully completed it")
+    }
 }
