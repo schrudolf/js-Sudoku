@@ -3,14 +3,24 @@
     padding: 0;
 }
 
+body {
+    background-color: burlywood;
+}
+
 .square {
-    border: 3px solid black;
+    border: 2px solid black;
     padding: 0;
     margin: auto
 }
 
 .smallSquare {
-    border: 1px solid rgb(182, 143, 143);
+    border: 1px solid rgb(0, 0, 0);
     padding-top: 4px;
-    color: rgb(61, 61, 216);
+    color: rgb(0, 0, 0);
+    background-color: rgb(216, 208, 208);
+}
+.smallEmtySquare {
+    padding-top: 4px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(216, 208, 208);
 }

@@ -21,6 +21,8 @@ const tryLimit = 1000;
 let stopper = 0;
 let exit = 0;
 
+
+
 // Generate 3x3 squares here.
 async function createNineSquare(level) {
     try {
@@ -48,7 +50,7 @@ async function createNineSquare(level) {
         await createSquareNine()
         // Generate end
 
-        if (successSudokuTable) {
+        if (successSudokuTable) { // Create new view 
             nextSquare = 0;
             while (view.firstChild) { // Remove last board
                 view.removeChild(view.firstChild);
@@ -65,6 +67,16 @@ async function createNineSquare(level) {
                     nineSquare.style = "min-height: 35px"
                     if (await randomNumbers() < difficulty[gameLevel]) {
                         nineSquare.innerHTML = "";
+                        nineSquare.style.backgroundColor = "white"
+                        nineSquare.addEventListener("click", function(){
+                            let value = parseInt(prompt("Enter a number: (1-9)"));
+                            if(isNaN(value) || value < 1 || value > 9){
+                                alert("Only numbers 1-9")
+                            }
+                            else {
+                                nineSquare.innerHTML = value;
+                            }
+                        })
                     } else {
                         nineSquare.innerHTML = `${newTable[nextSquare][i]}`;
                     }
