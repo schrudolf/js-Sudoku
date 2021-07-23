@@ -11,6 +11,8 @@ let squareNine = []
 
 let successSudokuTable = false;
 let view = document.getElementById("sudoku")
+let alertMsg = document.getElementById("alertMsg")
+let emptyFields = document.getElementById("emptyFields")
 let nextSquare = 0;
 let gameLevel;
 let difficulty = [2, 4, 6, 7]
@@ -69,11 +71,12 @@ async function createNineSquare(level) {
                         nineSquare.innerHTML = "";
                         nineSquare.style.backgroundColor = "white"
                         nineSquare.addEventListener("click", function () {
-                            let value = parseInt(prompt("Enter a number: (1-9)"));
-                            if (isNaN(value) || value < 1 || value > 9) {
-                                alert("Only numbers 1-9")
-                            } else {
-                                nineSquare.innerHTML = value;
+                            let value = prompt("Enter a number: (1-9 or empty)");
+                            if(isNaN(value) || value < 1 || value > 9) {
+                                nineSquare.innerHTML = null
+                            } 
+                            else {
+                                nineSquare.innerHTML = parseInt(value);
                                 checkTheStatusOfTheTable() 
                             }
                         })
@@ -390,6 +393,7 @@ function createSquareNine() {
 
 // Fresh empty arrays. Generating new Sudoku table
 async function restart(level) {
+    emptyFields.innerHTML = "";
     createNineSquare(level)
 }
 
@@ -413,9 +417,12 @@ function checkTheStatusOfTheTable() {
         allSquare++
     }
     if (badValue > 0 && allSquare === 9 && emptySquare === 0) { // Completed but the value is bad
-        alert("One of the numbers is incorrect! :((")
+        alertMsg.classList = "text-danger text-center mt-3"
+        alertMsg.innerText = `${badValue} numbers are incorrect`
     }
     if (badValue === 0 && allSquare === 9 && emptySquare === 0) { // if check all square and no bad value or emptySquare. You win
-        alert("Successfully completed it")
+        alertMsg.classList = "text-success text-center mt-3"
+        alertMsg.innerText = "Congratulations! Successfully completed it"
     }
+    emptyFields.innerHTML = `Remaining empty fields: ${emptySquare}`
 }

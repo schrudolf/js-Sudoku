@@ -19,10 +19,12 @@
             <button class="mt-1 col-md-3 col-sm-6 btn-sm btn btn-primary text-center" onclick="restart(1)">Beginner</button>
             <button class="mt-1 col-md-3 col-sm-6 btn-sm btn btn-warning text-center" onclick="restart(2)">Advanced</button>
             <button class="mt-1 col-md-3 col-sm-6 btn-sm btn btn-danger text-center" onclick="restart(3)">Master</button>
+            <p id="alertMsg" class="col-md-5 col-sm-12 m-auto text-center p-3"></p>
         </div>
     </div>
-    <div class="container mt-5 mb-3">
+    <div class="container mt-3 mb-3">
         <div id="sudoku" class="row col-md-5 col-sm-12 m-auto"></div>
+        <div id="emptyFields" class="col-md-5 col-sm-12 mt-2 m-auto"></div>
     </div>
     <script src="sudoku/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
