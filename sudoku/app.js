@@ -394,6 +394,7 @@ function createSquareNine() {
 // Fresh empty arrays. Generating new Sudoku table
 async function restart(level) {
     emptyFields.innerHTML = "";
+    alertMsg.innerText = "";
     createNineSquare(level)
 }
 
