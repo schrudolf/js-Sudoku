@@ -1,4 +1,5 @@
 let sudokuTable;
+
 let successSudokuTable = false;
 let view = document.getElementById("sudoku")
 let alertMsg = document.getElementById("alertMsg")
@@ -7,13 +8,10 @@ let nextSquare = 0;
 let gameLevel;
 let difficulty = [2, 4, 6, 7]
 
-
 // restarter parameters (No need to touch it. If generation is unsolvable, it will restart)
 const tryLimit = 1000;
 let stopper = 0;
 let exit = 0;
-
-
 
 // Generate 3x3 squares here.
 async function createNineSquare(level) {
@@ -43,7 +41,7 @@ async function createNineSquare(level) {
             while (view.firstChild) { // Remove last board
                 view.removeChild(view.firstChild);
             }
-            let newTable = [sudokuTable[0], sudokuTable[1], sudokuTable[2], sudokuTable[3], sudokuTable[4], sudokuTable[5], sudokuTable[6], sudokuTable[7], sudokuTable[8]]
+            let newTable = sudokuTable;
 
             for (let i = 0; i < 9; i++) { // Create view with generated numbers
                 let newSquare = document.createElement("div")
@@ -91,9 +89,9 @@ function createSquareOne() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((randomNumber => {
-                    if (!sudokuTable[0].includes(randomNumber)) {
-                        sudokuTable[0].push(randomNumber)
+                .then((rm => {
+                    if (!sudokuTable[0].includes(rm)) {
+                        sudokuTable[0].push(rm)
                         i++
                     }
                     if (i === 9) {
@@ -108,16 +106,16 @@ function createSquareTwo() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((randomNumber => {
+                .then((rm => {
                     stopper++;
-                    if (i < 3 && !sudokuTable[1].includes(randomNumber) && !sudokuTable[0].slice(0, 3).includes(randomNumber)) {
-                        sudokuTable[1].push(randomNumber)
+                    if (i < 3 && !sudokuTable[1].includes(rm) && !sudokuTable[0].slice(0, 3).includes(rm)) {
+                        sudokuTable[1].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && !sudokuTable[1].includes(randomNumber) && !sudokuTable[0].slice(3, 6).includes(randomNumber)) {
-                        sudokuTable[1].push(randomNumber)
+                    } else if (i < 6 && i > 2 && !sudokuTable[1].includes(rm) && !sudokuTable[0].slice(3, 6).includes(rm)) {
+                        sudokuTable[1].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && !sudokuTable[1].includes(randomNumber) && !sudokuTable[0].slice(6, 9).includes(randomNumber)) {
-                        sudokuTable[1].push(randomNumber)
+                    } else if (i < 9 && i > 5 && !sudokuTable[1].includes(rm) && !sudokuTable[0].slice(6, 9).includes(rm)) {
+                        sudokuTable[1].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -142,16 +140,16 @@ function createSquareThree() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((randomNumber => {
+                .then((rm => {
                     stopper++;
-                    if (i < 3 && !sudokuTable[2].includes(randomNumber) && !sudokuTable[0].slice(0, 3).includes(randomNumber) && !sudokuTable[1].slice(0, 3).includes(randomNumber)) {
-                        sudokuTable[2].push(randomNumber)
+                    if (i < 3 && !sudokuTable[2].includes(rm) && !sudokuTable[0].slice(0, 3).includes(rm) && !sudokuTable[1].slice(0, 3).includes(rm)) {
+                        sudokuTable[2].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && !sudokuTable[2].includes(randomNumber) && !sudokuTable[0].slice(3, 6).includes(randomNumber) && !sudokuTable[1].slice(3, 6).includes(randomNumber)) {
-                        sudokuTable[2].push(randomNumber)
+                    } else if (i < 6 && i > 2 && !sudokuTable[2].includes(rm) && !sudokuTable[0].slice(3, 6).includes(rm) && !sudokuTable[1].slice(3, 6).includes(rm)) {
+                        sudokuTable[2].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && !sudokuTable[2].includes(randomNumber) && !sudokuTable[0].slice(6, 9).includes(randomNumber) && !sudokuTable[1].slice(6, 9).includes(randomNumber)) {
-                        sudokuTable[2].push(randomNumber)
+                    } else if (i < 9 && i > 5 && !sudokuTable[2].includes(rm) && !sudokuTable[0].slice(6, 9).includes(rm) && !sudokuTable[1].slice(6, 9).includes(rm)) {
+                        sudokuTable[2].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -176,16 +174,16 @@ function createSquareFour() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((randomNumber => {
+                .then((rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[0][i] !== randomNumber && !sudokuTable[3].includes(randomNumber) && sudokuTable[0][i + 3] !== randomNumber && sudokuTable[0][i + 6] !== randomNumber) {
-                        sudokuTable[3].push(randomNumber)
+                    if (i < 3 && sudokuTable[0][i] !== rm && !sudokuTable[3].includes(rm) && sudokuTable[0][i + 3] !== rm && sudokuTable[0][i + 6] !== rm) {
+                        sudokuTable[3].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[0][i] !== randomNumber && !sudokuTable[3].includes(randomNumber) && sudokuTable[0][i - 3] !== randomNumber && sudokuTable[0][i + 3] !== randomNumber) {
-                        sudokuTable[3].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[0][i] !== rm && !sudokuTable[3].includes(rm) && sudokuTable[0][i - 3] !== rm && sudokuTable[0][i + 3] !== rm) {
+                        sudokuTable[3].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[0][i] !== randomNumber && !sudokuTable[3].includes(randomNumber) && sudokuTable[0][i - 3] !== randomNumber && sudokuTable[0][i - 6] !== randomNumber) {
-                        sudokuTable[3].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[0][i] !== rm && !sudokuTable[3].includes(rm) && sudokuTable[0][i - 3] !== rm && sudokuTable[0][i - 6] !== rm) {
+                        sudokuTable[3].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -210,16 +208,16 @@ function createSquareFive() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((async randomNumber => {
+                .then((async rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[1][i] !== randomNumber && !sudokuTable[4].includes(randomNumber) && sudokuTable[1][i + 3] !== randomNumber && sudokuTable[1][i + 6] !== randomNumber && !sudokuTable[3].slice(0, 3).includes(randomNumber)) {
-                        sudokuTable[4].push(randomNumber)
+                    if (i < 3 && sudokuTable[1][i] !== rm && !sudokuTable[4].includes(rm) && sudokuTable[1][i + 3] !== rm && sudokuTable[1][i + 6] !== rm && !sudokuTable[3].slice(0, 3).includes(rm)) {
+                        sudokuTable[4].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[1][i] !== randomNumber && !sudokuTable[4].includes(randomNumber) && sudokuTable[1][i - 3] !== randomNumber && sudokuTable[1][i + 3] !== randomNumber && !sudokuTable[3].slice(3, 6).includes(randomNumber)) {
-                        sudokuTable[4].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[1][i] !== rm && !sudokuTable[4].includes(rm) && sudokuTable[1][i - 3] !== rm && sudokuTable[1][i + 3] !== rm && !sudokuTable[3].slice(3, 6).includes(rm)) {
+                        sudokuTable[4].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[1][i] !== randomNumber && !sudokuTable[4].includes(randomNumber) && sudokuTable[1][i - 3] !== randomNumber && sudokuTable[1][i - 6] !== randomNumber && !sudokuTable[3].slice(6, 9).includes(randomNumber)) {
-                        sudokuTable[4].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[1][i] !== rm && !sudokuTable[4].includes(rm) && sudokuTable[1][i - 3] !== rm && sudokuTable[1][i - 6] !== rm && !sudokuTable[3].slice(6, 9).includes(rm)) {
+                        sudokuTable[4].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -244,16 +242,16 @@ function createSquareSix() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((async randomNumber => {
+                .then((async rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[2][i] !== randomNumber && !sudokuTable[5].includes(randomNumber) && sudokuTable[2][i + 3] !== randomNumber && sudokuTable[2][i + 6] !== randomNumber && !sudokuTable[3].slice(0, 3).includes(randomNumber) && !sudokuTable[4].slice(0, 3).includes(randomNumber)) {
-                        sudokuTable[5].push(randomNumber)
+                    if (i < 3 && sudokuTable[2][i] !== rm && !sudokuTable[5].includes(rm) && sudokuTable[2][i + 3] !== rm && sudokuTable[2][i + 6] !== rm && !sudokuTable[3].slice(0, 3).includes(rm) && !sudokuTable[4].slice(0, 3).includes(rm)) {
+                        sudokuTable[5].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[2][i] !== randomNumber && !sudokuTable[5].includes(randomNumber) && sudokuTable[2][i - 3] !== randomNumber && sudokuTable[2][i + 3] !== randomNumber && !sudokuTable[3].slice(3, 6).includes(randomNumber) && !sudokuTable[4].slice(3, 6).includes(randomNumber)) {
-                        sudokuTable[5].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[2][i] !== rm && !sudokuTable[5].includes(rm) && sudokuTable[2][i - 3] !== rm && sudokuTable[2][i + 3] !== rm && !sudokuTable[3].slice(3, 6).includes(rm) && !sudokuTable[4].slice(3, 6).includes(rm)) {
+                        sudokuTable[5].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[2][i] !== randomNumber && !sudokuTable[5].includes(randomNumber) && sudokuTable[2][i - 3] !== randomNumber && sudokuTable[2][i - 6] !== randomNumber && !sudokuTable[3].slice(6, 9).includes(randomNumber) && !sudokuTable[4].slice(6, 9).includes(randomNumber)) {
-                        sudokuTable[5].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[2][i] !== rm && !sudokuTable[5].includes(rm) && sudokuTable[2][i - 3] !== rm && sudokuTable[2][i - 6] !== rm && !sudokuTable[3].slice(6, 9).includes(rm) && !sudokuTable[4].slice(6, 9).includes(rm)) {
+                        sudokuTable[5].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -279,16 +277,16 @@ function createSquareSeven() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((randomNumber => {
+                .then((rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[0][i] !== randomNumber && sudokuTable[3][i] !== randomNumber && !sudokuTable[6].includes(randomNumber) && sudokuTable[0][i + 3] !== randomNumber && sudokuTable[0][i + 6] !== randomNumber && sudokuTable[3][i + 3] !== randomNumber && sudokuTable[3][i + 6] !== randomNumber) {
-                        sudokuTable[6].push(randomNumber)
+                    if (i < 3 && sudokuTable[0][i] !== rm && sudokuTable[3][i] !== rm && !sudokuTable[6].includes(rm) && sudokuTable[0][i + 3] !== rm && sudokuTable[0][i + 6] !== rm && sudokuTable[3][i + 3] !== rm && sudokuTable[3][i + 6] !== rm) {
+                        sudokuTable[6].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[0][i] !== randomNumber && sudokuTable[3][i] !== randomNumber && !sudokuTable[6].includes(randomNumber) && sudokuTable[0][i - 3] !== randomNumber && sudokuTable[0][i + 3] !== randomNumber && sudokuTable[3][i - 3] !== randomNumber && sudokuTable[3][i + 3] !== randomNumber) {
-                        sudokuTable[6].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[0][i] !== rm && sudokuTable[3][i] !== rm && !sudokuTable[6].includes(rm) && sudokuTable[0][i - 3] !== rm && sudokuTable[0][i + 3] !== rm && sudokuTable[3][i - 3] !== rm && sudokuTable[3][i + 3] !== rm) {
+                        sudokuTable[6].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[0][i] !== randomNumber && sudokuTable[3][i] !== randomNumber && !sudokuTable[6].includes(randomNumber) && sudokuTable[0][i - 3] !== randomNumber && sudokuTable[0][i - 6] !== randomNumber && sudokuTable[3][i - 3] !== randomNumber && sudokuTable[3][i - 6] !== randomNumber) {
-                        sudokuTable[6].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[0][i] !== rm && sudokuTable[3][i] !== rm && !sudokuTable[6].includes(rm) && sudokuTable[0][i - 3] !== rm && sudokuTable[0][i - 6] !== rm && sudokuTable[3][i - 3] !== rm && sudokuTable[3][i - 6] !== rm) {
+                        sudokuTable[6].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -313,16 +311,16 @@ function createSquareEight() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((async randomNumber => {
+                .then((async rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[1][i] !== randomNumber && sudokuTable[4][i] !== randomNumber && !sudokuTable[7].includes(randomNumber) && sudokuTable[1][i + 3] !== randomNumber && sudokuTable[1][i + 6] !== randomNumber && !sudokuTable[6].slice(0, 3).includes(randomNumber) && sudokuTable[4][i + 3] !== randomNumber && sudokuTable[4][i + 6] !== randomNumber) {
-                        sudokuTable[7].push(randomNumber)
+                    if (i < 3 && sudokuTable[1][i] !== rm && sudokuTable[4][i] !== rm && !sudokuTable[7].includes(rm) && sudokuTable[1][i + 3] !== rm && sudokuTable[1][i + 6] !== rm && !sudokuTable[6].slice(0, 3).includes(rm) && sudokuTable[4][i + 3] !== rm && sudokuTable[4][i + 6] !== rm) {
+                        sudokuTable[7].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[1][i] !== randomNumber && sudokuTable[4][i] !== randomNumber && !sudokuTable[7].includes(randomNumber) && sudokuTable[1][i - 3] !== randomNumber && sudokuTable[1][i + 3] !== randomNumber && !sudokuTable[6].slice(3, 6).includes(randomNumber) && sudokuTable[4][i - 3] !== randomNumber && sudokuTable[4][i + 3] !== randomNumber) {
-                        sudokuTable[7].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[1][i] !== rm && sudokuTable[4][i] !== rm && !sudokuTable[7].includes(rm) && sudokuTable[1][i - 3] !== rm && sudokuTable[1][i + 3] !== rm && !sudokuTable[6].slice(3, 6).includes(rm) && sudokuTable[4][i - 3] !== rm && sudokuTable[4][i + 3] !== rm) {
+                        sudokuTable[7].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[1][i] !== randomNumber && sudokuTable[4][i] !== randomNumber && !sudokuTable[7].includes(randomNumber) && sudokuTable[1][i - 3] !== randomNumber && sudokuTable[1][i - 6] !== randomNumber && !sudokuTable[6].slice(6, 9).includes(randomNumber) && sudokuTable[4][i - 3] !== randomNumber && sudokuTable[4][i - 6] !== randomNumber) {
-                        sudokuTable[7].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[1][i] !== rm && sudokuTable[4][i] !== rm && !sudokuTable[7].includes(rm) && sudokuTable[1][i - 3] !== rm && sudokuTable[1][i - 6] !== rm && !sudokuTable[6].slice(6, 9).includes(rm) && sudokuTable[4][i - 3] !== rm && sudokuTable[4][i - 6] !== rm) {
+                        sudokuTable[7].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -347,16 +345,16 @@ function createSquareNine() {
     return new Promise(async (resolve, reject) => {
         for (let i = 0; i < 9;) {
             await randomNumbers()
-                .then((async randomNumber => {
+                .then((async rm => {
                     stopper++;
-                    if (i < 3 && sudokuTable[2][i] !== randomNumber && sudokuTable[5][i] !== randomNumber && !sudokuTable[8].includes(randomNumber) && sudokuTable[2][i + 3] !== randomNumber && sudokuTable[2][i + 6] !== randomNumber && sudokuTable[5][i + 3] !== randomNumber && sudokuTable[5][i + 6] !== randomNumber && !sudokuTable[6].slice(0, 3).includes(randomNumber) && !sudokuTable[7].slice(0, 3).includes(randomNumber)) {
-                        sudokuTable[8].push(randomNumber)
+                    if (i < 3 && sudokuTable[2][i] !== rm && sudokuTable[5][i] !== rm && !sudokuTable[8].includes(rm) && sudokuTable[2][i + 3] !== rm && sudokuTable[2][i + 6] !== rm && sudokuTable[5][i + 3] !== rm && sudokuTable[5][i + 6] !== rm && !sudokuTable[6].slice(0, 3).includes(rm) && !sudokuTable[7].slice(0, 3).includes(rm)) {
+                        sudokuTable[8].push(rm)
                         i++
-                    } else if (i < 6 && i > 2 && sudokuTable[2][i] !== randomNumber && sudokuTable[5][i] !== randomNumber && !sudokuTable[8].includes(randomNumber) && sudokuTable[2][i - 3] !== randomNumber && sudokuTable[2][i + 3] !== randomNumber && sudokuTable[5][i - 3] !== randomNumber && sudokuTable[5][i + 3] !== randomNumber && !sudokuTable[6].slice(3, 6).includes(randomNumber) && !sudokuTable[7].slice(3, 6).includes(randomNumber)) {
-                        sudokuTable[8].push(randomNumber)
+                    } else if (i < 6 && i > 2 && sudokuTable[2][i] !== rm && sudokuTable[5][i] !== rm && !sudokuTable[8].includes(rm) && sudokuTable[2][i - 3] !== rm && sudokuTable[2][i + 3] !== rm && sudokuTable[5][i - 3] !== rm && sudokuTable[5][i + 3] !== rm && !sudokuTable[6].slice(3, 6).includes(rm) && !sudokuTable[7].slice(3, 6).includes(rm)) {
+                        sudokuTable[8].push(rm)
                         i++
-                    } else if (i < 9 && i > 5 && sudokuTable[2][i] !== randomNumber && sudokuTable[5][i] !== randomNumber && !sudokuTable[8].includes(randomNumber) && sudokuTable[2][i - 3] !== randomNumber && sudokuTable[2][i - 6] !== randomNumber && sudokuTable[5][i - 3] !== randomNumber && sudokuTable[5][i - 6] !== randomNumber && !sudokuTable[6].slice(6, 9).includes(randomNumber) && !sudokuTable[7].slice(6, 9).includes(randomNumber)) {
-                        sudokuTable[8].push(randomNumber)
+                    } else if (i < 9 && i > 5 && sudokuTable[2][i] !== rm && sudokuTable[5][i] !== rm && !sudokuTable[8].includes(rm) && sudokuTable[2][i - 3] !== rm && sudokuTable[2][i - 6] !== rm && sudokuTable[5][i - 3] !== rm && sudokuTable[5][i - 6] !== rm && !sudokuTable[6].slice(6, 9).includes(rm) && !sudokuTable[7].slice(6, 9).includes(rm)) {
+                        sudokuTable[8].push(rm)
                         i++
                     } else if (exit === 3) {
                         i = 10
@@ -388,7 +386,7 @@ function checkTheStatusOfTheTable() {
     let allSquare = 0;
     let badValue = 0;
     let emptySquare = 0;
-    let newTable = [sudokuTable[0], sudokuTable[1], sudokuTable[2], sudokuTable[3], sudokuTable[4], sudokuTable[5], sudokuTable[6], sudokuTable[7], sudokuTable[8]]
+    let newTable = sudokuTable;
     for (let i = 0; i < 9; i++) {
         for (let i = 0; i < 9; i++) {
             if (view.children[allSquare].children[i].firstChild !== null) {
