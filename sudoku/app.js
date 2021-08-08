@@ -11,7 +11,6 @@ let difficulty = [2, 4, 6, 7]
 // restarter parameters (No need to touch it. If generation is unsolvable, it will restart)
 const tryLimit = 1000;
 let stopper = 0;
-let exit = 0;
 
 // Generate 3x3 squares here.
 async function createNineSquare(level) {
@@ -20,9 +19,9 @@ async function createNineSquare(level) {
             gameLevel = level
         }
         sudokuTable = [
-            [], [], [],
-            [], [], [],
-            [], [], []
+            [],[],[],
+            [],[],[],
+            [],[],[]
         ]
         //Start 3x3 generate (Each subsequent square adapts vertically and horizontally during generation)
         await createSquareOne()
@@ -56,12 +55,11 @@ async function createNineSquare(level) {
                         nineSquare.style.backgroundColor = "white"
                         nineSquare.addEventListener("click", function () {
                             let value = prompt("Enter a number: (1-9 or empty)");
-                            if(isNaN(value) || value < 1 || value > 9) {
+                            if (isNaN(value) || value < 1 || value > 9) {
                                 nineSquare.innerHTML = null
-                            } 
-                            else {
+                            } else {
                                 nineSquare.innerHTML = parseInt(value);
-                                checkTheStatusOfTheTable() 
+                                checkTheStatusOfTheTable()
                             }
                         })
                     } else {
@@ -74,7 +72,6 @@ async function createNineSquare(level) {
         }
     } catch {
         // If it cannot be generated successfully. It will start again
-        exit = 0;
         return restart()
     }
 }
@@ -118,15 +115,11 @@ function createSquareTwo() {
                     } else if (i < 9 && i > 5 && !sudokuTable[1].includes(rN) && !sudokuTable[0].slice(6, 9).includes(rN)) {
                         sudokuTable[1].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++;
                         sudokuTable[1] = [];
                         i = 10;
-                        return resolve(createSquareTwo())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -151,15 +144,11 @@ function createSquareThree() {
                     } else if (i < 9 && i > 5 && !sudokuTable[2].includes(rN) && !sudokuTable[0].slice(6, 9).includes(rN) && !sudokuTable[1].slice(6, 9).includes(rN)) {
                         sudokuTable[2].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++;
                         sudokuTable[2] = [];
                         i = 10;
-                        return resolve(createSquareThree())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -184,15 +173,11 @@ function createSquareFour() {
                     } else if (i < 9 && i > 5 && sudokuTable[0][i] !== rN && !sudokuTable[3].includes(rN) && sudokuTable[0][i - 3] !== rN && sudokuTable[0][i - 6] !== rN) {
                         sudokuTable[3].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++;
                         sudokuTable[3] = [];
                         i = 10;
-                        return resolve(createSquareFour())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -217,15 +202,11 @@ function createSquareFive() {
                     } else if (i < 9 && i > 5 && sudokuTable[1][i] !== rN && !sudokuTable[4].includes(rN) && sudokuTable[1][i - 3] !== rN && sudokuTable[1][i - 6] !== rN && !sudokuTable[3].slice(6, 9).includes(rN)) {
                         sudokuTable[4].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++
                         sudokuTable[4] = [];
                         i = 10;
-                        return resolve(createSquareFive())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -250,15 +231,11 @@ function createSquareSix() {
                     } else if (i < 9 && i > 5 && sudokuTable[2][i] !== rN && !sudokuTable[5].includes(rN) && sudokuTable[2][i - 3] !== rN && sudokuTable[2][i - 6] !== rN && !sudokuTable[3].slice(6, 9).includes(rN) && !sudokuTable[4].slice(6, 9).includes(rN)) {
                         sudokuTable[5].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++
                         sudokuTable[5] = [];
                         i = 10;
-                        return resolve(createSquareSix())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -284,15 +261,11 @@ function createSquareSeven() {
                     } else if (i < 9 && i > 5 && sudokuTable[0][i] !== rN && sudokuTable[3][i] !== rN && !sudokuTable[6].includes(rN) && sudokuTable[0][i - 3] !== rN && sudokuTable[0][i - 6] !== rN && sudokuTable[3][i - 3] !== rN && sudokuTable[3][i - 6] !== rN) {
                         sudokuTable[6].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++
                         sudokuTable[6] = [];
                         i = 10;
-                        return resolve(createSquareSeven())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -317,15 +290,11 @@ function createSquareEight() {
                     } else if (i < 9 && i > 5 && sudokuTable[1][i] !== rN && sudokuTable[4][i] !== rN && !sudokuTable[7].includes(rN) && sudokuTable[1][i - 3] !== rN && sudokuTable[1][i - 6] !== rN && !sudokuTable[6].slice(6, 9).includes(rN) && sudokuTable[4][i - 3] !== rN && sudokuTable[4][i - 6] !== rN) {
                         sudokuTable[7].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++
                         sudokuTable[7] = [];
                         i = 10;
-                        return resolve(createSquareEight())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve()
@@ -350,15 +319,10 @@ function createSquareNine() {
                     } else if (i < 9 && i > 5 && sudokuTable[2][i] !== rN && sudokuTable[5][i] !== rN && !sudokuTable[8].includes(rN) && sudokuTable[2][i - 3] !== rN && sudokuTable[2][i - 6] !== rN && sudokuTable[5][i - 3] !== rN && sudokuTable[5][i - 6] !== rN && !sudokuTable[6].slice(6, 9).includes(rN) && !sudokuTable[7].slice(6, 9).includes(rN)) {
                         sudokuTable[8].push(rN)
                         i++
-                    } else if (exit === 3) {
-                        i = 10
-                        return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
-                        exit++
-                        sudokuTable[8] = [];
                         i = 10;
-                        return resolve(createSquareNine())
+                        return reject()
                     }
                     if (i === 9) {
                         resolve(successSudokuTable = true)
@@ -383,8 +347,7 @@ function checkTheStatusOfTheTable() {
     for (let i = 0; i < 9; i++) {
         for (let i = 0; i < 9; i++) {
             if (view.children[allSquare].children[i].firstChild !== null) {
-                if (parseInt(view.children[allSquare].children[i].firstChild.textContent) === newTable[allSquare][i]) {
-                } else {
+                if (parseInt(view.children[allSquare].children[i].firstChild.textContent) === newTable[allSquare][i]) {} else {
                     badValue++; // if value bad
                 }
 
