@@ -34,14 +34,12 @@ async function createNineSquare(level) {
         await createSquareEight()
         await createSquareNine()
         // Generate end
-
         if (successSudokuTable) { // Create new view 
             nextSquare = 0;
             while (view.firstChild) { // Remove last board
                 view.removeChild(view.firstChild);
             }
             let newTable = sudokuTable;
-
             for (let i = 0; i < 9; i++) { // Create view with generated numbers
                 let newSquare = document.createElement("div")
                 newSquare.classList = `row col-4 text-center square`
@@ -116,8 +114,6 @@ function createSquareTwo() {
                         sudokuTable[1].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[1] = [];
                         i = 10;
                         return reject()
                     }
@@ -145,8 +141,6 @@ function createSquareThree() {
                         sudokuTable[2].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[2] = [];
                         i = 10;
                         return reject()
                     }
@@ -174,8 +168,6 @@ function createSquareFour() {
                         sudokuTable[3].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[3] = [];
                         i = 10;
                         return reject()
                     }
@@ -203,8 +195,6 @@ function createSquareFive() {
                         sudokuTable[4].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[4] = [];
                         i = 10;
                         return reject()
                     }
@@ -232,8 +222,6 @@ function createSquareSix() {
                         sudokuTable[5].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[5] = [];
                         i = 10;
                         return reject()
                     }
@@ -262,8 +250,6 @@ function createSquareSeven() {
                         sudokuTable[6].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[6] = [];
                         i = 10;
                         return reject()
                     }
@@ -291,8 +277,6 @@ function createSquareEight() {
                         sudokuTable[7].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
-                        sudokuTable[7] = [];
                         i = 10;
                         return reject()
                     }
@@ -320,7 +304,6 @@ function createSquareNine() {
                         sudokuTable[8].push(rN)
                         i++
                     } else if (stopper === tryLimit) {
-                        stopper = 0;
                         i = 10;
                         return reject()
                     }
@@ -334,6 +317,7 @@ function createSquareNine() {
 
 // Fresh empty arrays. Generating new Sudoku table
 async function restart(level) {
+    stopper = 0;
     emptyFields.innerHTML = "";
     alertMsg.innerText = "";
     createNineSquare(level)
