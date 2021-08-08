@@ -74,6 +74,7 @@ async function createNineSquare(level) {
         }
     } catch {
         // If it cannot be generated successfully. It will start again
+        exit = 0;
         return restart()
     }
 }
@@ -119,7 +120,6 @@ function createSquareTwo() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -153,7 +153,6 @@ function createSquareThree() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -187,7 +186,6 @@ function createSquareFour() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -221,7 +219,6 @@ function createSquareFive() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -255,7 +252,6 @@ function createSquareSix() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -290,7 +286,6 @@ function createSquareSeven() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -324,7 +319,6 @@ function createSquareEight() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
@@ -358,7 +352,6 @@ function createSquareNine() {
                         i++
                     } else if (exit === 3) {
                         i = 10
-                        exit = 0;
                         return reject()
                     } else if (stopper === tryLimit) {
                         stopper = 0;
